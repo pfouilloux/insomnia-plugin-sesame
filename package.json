@@ -1,0 +1,21 @@
+{
+  "name": "insomnia-plugin-sesame",
+  "version": "0.0.1",
+  "private": false,
+  "insomnia": {
+    "name": "sesame",
+    "displayName": "Open Sesame",
+    "description": "Opens responses using the default software on your system",
+    "images": {
+    },
+    "publisher": {
+      "name": "Pierre Fouilloux",
+      "icon": "https://avatars.githubusercontent.com/u/7494211?v=4"
+    }
+  },
+  "main": "main.js",
+  "dependencies": {
+    "etl": "^0.6.12",
+    "mime-types": "^2.1.30"
+  }
+}
