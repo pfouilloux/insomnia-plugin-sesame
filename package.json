@@ -6,7 +6,9 @@
     "name": "sesame",
     "displayName": "Open Sesame",
     "description": "Opens responses using the default software on your system",
-    "images": {},
+    "images": {
+      "icon": "logo.svg"
+    },
     "publisher": {
       "name": "Pierre Fouilloux",
       "icon": "https://avatars.githubusercontent.com/u/7494211?v=4"
