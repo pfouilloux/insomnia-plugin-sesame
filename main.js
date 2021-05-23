@@ -3,8 +3,7 @@ const etl = require('etl')
 const mime = require('mime-types')
 const child = require('child_process');
 
-const MAGIC_HEADER_KEY = "OPEN_SESAME"
-const MAGIC_HEADER_VAL = "SUPERCALIFRAGILISTICEXPIALIDOCIOUS_42"
+const CONTENT_TYPE_BLACKLIST = ["text/", "application/json"]
 
 module.exports.templateTags = [{
     name: 'open_sesame',
@@ -16,20 +15,16 @@ module.exports.templateTags = [{
             type: 'model',
             model: 'Request',
         },
-    ],
-    async run(context, requestId) {
-        const request = await context.util.models.request.getById(requestId)
-        request.headers.push({name: MAGIC_HEADER_KEY, value: MAGIC_HEADER_VAL})
-    }
+    ]
 }]
 
 module.exports.responseHooks = [
     context => {
-        if (!context.request.getHeader(MAGIC_HEADER_KEY) === MAGIC_HEADER_VAL || context.response.getStatusCode() !== 200) {
+        const contentType = context.response.getHeader('Content-Type')
+        if (context.response.getStatusCode() !== 200 || CONTENT_TYPE_BLACKLIST.some((it) => contentType.startsWith(it))) {
             return
         }
 
-        const contentType = context.response.getHeader('Content-Type')
         const extension = mime.extension(contentType)
         if (!extension) {
             throw new Error(`Invalid content type ${extension}`)
